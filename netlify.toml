@@ -6,28 +6,59 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    Content-Security-Policy = "default-src 'self' https://newsapi.org; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://cdnjs.cloudflare.com https://raw.githubusercontent.com https://*.tile.openstreetmap.org; connect-src 'self' https://newsapi.org https://*.tile.openstreetmap.org; frame-ancestors 'none';"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self), interest-cohort=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(self), interest-cohort=()"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    Content-Security-Policy = "default-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co https://newsapi.org; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://cdnjs.cloudflare.com https://raw.githubusercontent.com https://*.tile.openstreetmap.org; connect-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co https://newsapi.org https://*.tile.openstreetmap.org; frame-ancestors 'none';"
 
 [build]
-  command = "npm ci && npx vite build"
+  command = "npm ci && ./node_modules/.bin/vite build"
   publish = "dist"
 
-[build.environment]
-  NODE_VERSION = "20"
-  CI = "true"
-  NODE_ENV = "production"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-[build.processing]
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self' https://newsapi.org; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://cdnjs.cloudflare.com https://raw.githubusercontent.com https://*.tile.openstreetmap.org; connect-src 'self' https://newsapi.org https://*.tile.openstreetmap.org; frame-ancestors 'none';"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self), interest-cohort=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+[build.environment]
+  VITE_NEWS_API_KEY = ""
+  VITE_SUPABASE_ANON_KEY = ""
+  VITE_SUPABASE_URL = ""
+  NODE_VERSION = "18" # Specify Node.js version
+
+[functions]
+  node_bundler = "esbuild"
+
+[processing]
   skip_processing = false
+
+[processing.css]
   minify = true
-  css.minify = true
-  js.minify = true
+
+[processing.html]
+  pretty_urls = true
+  minify = true
+
+[processing.images]
+  compress = true
+  optimize = true
+
+[processing.js]
+  minify = true
   html.minify = true
   images.optimize = true
 
