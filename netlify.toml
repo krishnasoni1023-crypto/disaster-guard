@@ -12,10 +12,10 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(self), interest-cohort=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    Content-Security-Policy = "default-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://cdnjs.cloudflare.com https://raw.githubusercontent.com https://*.tile.openstreetmap.org; connect-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co https://*.tile.openstreetmap.org; frame-ancestors 'none';"
+    Content-Security-Policy = "default-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co https://newsapi.org; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://cdnjs.cloudflare.com https://raw.githubusercontent.com https://*.tile.openstreetmap.org; connect-src 'self' https://wrvuuvzaycvpikbdccbb.supabase.co https://newsapi.org https://*.tile.openstreetmap.org; frame-ancestors 'none';"
 
 [build]
-  command = "npx vite build"
+  command = "npm install --legacy-peer-deps && npm run build"
   publish = "dist"
 
 [build.environment]
@@ -32,6 +32,6 @@
   images.optimize = true
 
 [dev]
-  command = "vite"
+  command = "npm run dev"
   port = 3000
   publish = "dist"
